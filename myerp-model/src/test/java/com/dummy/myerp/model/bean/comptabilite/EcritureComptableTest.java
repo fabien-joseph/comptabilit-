@@ -93,6 +93,7 @@ public class EcritureComptableTest {
         JournalComptable journalComptable = new JournalComptable("CodeComptable", "LibelleComptable");
         Date date = new Date(1220227200L * 1000);
         String libelle = "Libelle";
+        String reference = "Reference";
         LigneEcritureComptable ligneEcritureComptable = new LigneEcritureComptable(
                 new CompteComptable(1, "LibelleCompteComptable"),
                 "LibelleLigneEcritureComptable",
@@ -107,12 +108,14 @@ public class EcritureComptableTest {
         eComptable.setLibelle(libelle);
         eComptable.setDate(date);
         eComptable.setJournal(journalComptable);
+        eComptable.setReference(reference);
         eComptable.getListLigneEcriture().add(ligneEcritureComptable);
 
         Assert.assertEquals(new Integer(1), eComptable.getId());
         Assert.assertEquals(libelle, eComptable.getLibelle());
         Assert.assertEquals(date, eComptable.getDate());
         Assert.assertEquals(journalComptable, eComptable.getJournal());
+        Assert.assertEquals(reference, eComptable.getReference());
         Assert.assertEquals(ligneEcritureComptables, eComptable.getListLigneEcriture());
     }
 
