@@ -124,9 +124,10 @@ public class EcritureComptableTest {
         CompteComptable cComptable = new CompteComptable();
         cComptable.setNumero(1);
         cComptable.setLibelle("Libelle");
-        String test = cComptable.toString();
+        String toString = "CompteComptable{numero=1, libelle='Libelle'}";
 
         Assert.assertEquals(new Integer(1), cComptable.getNumero());
         Assert.assertEquals("Libelle", cComptable.getLibelle());
+        Assert.assertEquals(toString, cComptable.toString());
     }
 }
