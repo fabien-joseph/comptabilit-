@@ -1,7 +1,10 @@
 package com.dummy.myerp.model.bean.comptabilite;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 import com.dummy.myerp.technical.exception.FunctionalException;
 import org.apache.commons.lang3.ObjectUtils;
 import org.junit.Assert;
@@ -86,6 +89,34 @@ public class EcritureComptableTest {
     }
 
     @Test
+    public void testEcritureComptable () {
+        JournalComptable journalComptable = new JournalComptable("CodeComptable", "LibelleComptable");
+        Date date = new Date(1220227200L * 1000);
+        String libelle = "Libelle";
+        LigneEcritureComptable ligneEcritureComptable = new LigneEcritureComptable(
+                new CompteComptable(1, "LibelleCompteComptable"),
+                "LibelleLigneEcritureComptable",
+                new BigDecimal(55555),
+                new BigDecimal(55555)
+        );
+        List<LigneEcritureComptable> ligneEcritureComptables = new ArrayList<>();
+        ligneEcritureComptables.add(ligneEcritureComptable);
+
+        EcritureComptable eComptable = new EcritureComptable();
+        eComptable.setId(1);
+        eComptable.setLibelle(libelle);
+        eComptable.setDate(date);
+        eComptable.setJournal(journalComptable);
+        eComptable.getListLigneEcriture().add(ligneEcritureComptable);
+
+        Assert.assertEquals(new Integer(1), eComptable.getId());
+        Assert.assertEquals(libelle, eComptable.getLibelle());
+        Assert.assertEquals(date, eComptable.getDate());
+        Assert.assertEquals(journalComptable, eComptable.getJournal());
+        Assert.assertEquals(ligneEcritureComptables, eComptable.getListLigneEcriture());
+    }
+
+    @Test
     public void testSequenceEcritureComptable() {
         SequenceEcritureComptable seqEcComptable = new SequenceEcritureComptable(2019, 58);
         seqEcComptable.setAnnee(2015);
@@ -108,6 +139,7 @@ public class EcritureComptableTest {
         Assert.assertEquals("LibelleCompteComptable", ligneEcritureComptable.getCompteComptable().getLibelle());
         Assert.assertEquals(new BigDecimal(84848), ligneEcritureComptable.getCredit());
         Assert.assertEquals(new BigDecimal(84848), ligneEcritureComptable.getDebit());
+        Assert.assertEquals("Libelle", ligneEcritureComptable.getLibelle());
     }
 
     @Test
@@ -120,7 +152,7 @@ public class EcritureComptableTest {
     }
 
     @Test
-    public void testEcritureComptable() {
+    public void testCompteComptable() {
         CompteComptable cComptable = new CompteComptable();
         cComptable.setNumero(1);
         cComptable.setLibelle("Libelle");
