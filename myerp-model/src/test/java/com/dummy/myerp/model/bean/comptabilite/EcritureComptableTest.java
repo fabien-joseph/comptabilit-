@@ -108,13 +108,18 @@ public class EcritureComptableTest {
         ligneEcritureComptable.setDebit(new BigDecimal(84848));
         ligneEcritureComptable.setLibelle("Libelle");
 
-        if (ligneEcritureComptable.getCompteComptable().getNumero() != 1 || !ligneEcritureComptable.getCompteComptable().getLibelle().equals("LibelleCompteComptable"))
-            fail("Le compte comptable enregistré n'est pas correct.");
-        if (!ligneEcritureComptable.getCredit().equals(new BigDecimal(84848)))
-            fail("Le crédit enregistré n'est pas correct.");
-        if (!ligneEcritureComptable.getDebit().equals(new BigDecimal(84848)))
-            fail("Le débit enregistré n'est pas correct.");
-        if (!ligneEcritureComptable.getLibelle().equals("Libelle"))
-            fail("Le libellé enregistré n'est pas correct.");
+        Assert.assertEquals(new Integer(1), ligneEcritureComptable.getCompteComptable().getNumero());
+        Assert.assertEquals("LibelleCompteComptable", ligneEcritureComptable.getCompteComptable().getLibelle());
+        Assert.assertEquals(new BigDecimal(84848), ligneEcritureComptable.getCredit());
+        Assert.assertEquals(new BigDecimal(84848), ligneEcritureComptable.getDebit());
+    }
+
+    @Test
+    public void testJournalComptable() {
+        JournalComptable jComptable = new JournalComptable("AC50", "Libelle");
+
+        Assert.assertEquals("AC50", jComptable.getCode());
+        Assert.assertEquals("Libelle", jComptable.getLibelle());
+
     }
 }
