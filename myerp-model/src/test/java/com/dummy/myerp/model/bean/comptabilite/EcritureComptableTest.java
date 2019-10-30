@@ -19,10 +19,10 @@ public class EcritureComptableTest {
         BigDecimal vDebit = pDebit == null ? null : new BigDecimal(pDebit);
         BigDecimal vCredit = pCredit == null ? null : new BigDecimal(pCredit);
         String vLibelle = ObjectUtils.defaultIfNull(vDebit, BigDecimal.ZERO)
-                                     .subtract(ObjectUtils.defaultIfNull(vCredit, BigDecimal.ZERO)).toPlainString();
+                .subtract(ObjectUtils.defaultIfNull(vCredit, BigDecimal.ZERO)).toPlainString();
         LigneEcritureComptable vRetour = new LigneEcritureComptable(new CompteComptable(pCompteComptableNumero),
-                                                                    vLibelle,
-                                                                    vDebit, vCredit);
+                vLibelle,
+                vDebit, vCredit);
         return vRetour;
     }
 
@@ -98,5 +98,23 @@ public class EcritureComptableTest {
         if (seqEcComptable.getAnnee() != 2015 || seqEcComptable.getDerniereValeur() != 99) {
             fail("La création d'une SequenceEcritureComptable c'est mal déroulée");
         }
+    }
+
+    @Test
+    public void testLigneEcritureComptable() {
+        LigneEcritureComptable ligneEcritureComptable = new LigneEcritureComptable();
+        ligneEcritureComptable.setCompteComptable(new CompteComptable(1, "LibelleCompteComptable"));
+        ligneEcritureComptable.setCredit(new BigDecimal(84848));
+        ligneEcritureComptable.setDebit(new BigDecimal(84848));
+        ligneEcritureComptable.setLibelle("Libelle");
+
+        if (ligneEcritureComptable.getCompteComptable().getNumero() != 1 || !ligneEcritureComptable.getCompteComptable().getLibelle().equals("LibelleCompteComptable"))
+            fail("Le compte comptable enregistré n'est pas correct.");
+        if (!ligneEcritureComptable.getCredit().equals(new BigDecimal(84848)))
+            fail("Le crédit enregistré n'est pas correct.");
+        if (!ligneEcritureComptable.getDebit().equals(new BigDecimal(84848)))
+            fail("Le débit enregistré n'est pas correct.");
+        if (!ligneEcritureComptable.getLibelle().equals("Libelle"))
+            fail("Le libellé enregistré n'est pas correct.");
     }
 }
