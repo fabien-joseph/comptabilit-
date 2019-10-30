@@ -121,13 +121,14 @@ public class EcritureComptableTest {
 
     @Test
     public void testSequenceEcritureComptable() {
-        SequenceEcritureComptable seqEcComptable = new SequenceEcritureComptable(2019, 58);
+        SequenceEcritureComptable seqEcComptable = new SequenceEcritureComptable();
         seqEcComptable.setAnnee(2015);
         seqEcComptable.setDerniereValeur(99);
+        String toString = "SequenceEcritureComptable{annee=2015, derniereValeur=99}";
 
-        if (seqEcComptable.getAnnee() != 2015 || seqEcComptable.getDerniereValeur() != 99) {
-            fail("La création d'une SequenceEcritureComptable c'est mal déroulée");
-        }
+        Assert.assertEquals(new Integer(2015), seqEcComptable.getAnnee());
+        Assert.assertEquals(new Integer(99), seqEcComptable.getDerniereValeur());
+        Assert.assertEquals(toString, seqEcComptable.toString());
     }
 
     @Test
@@ -150,8 +151,11 @@ public class EcritureComptableTest {
         JournalComptable jComptable = new JournalComptable();
         jComptable.setCode("AC50");
         jComptable.setLibelle("Libelle");
+        String toString = "JournalComptable{code='AC50', libelle='Libelle'}";
+
         Assert.assertEquals("AC50", jComptable.getCode());
         Assert.assertEquals("Libelle", jComptable.getLibelle());
+        Assert.assertEquals(toString, jComptable.toString());
     }
 
     @Test
