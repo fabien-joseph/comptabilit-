@@ -121,14 +121,15 @@ public class EcritureComptableTest {
 
     @Test
     public void testSequenceEcritureComptable() {
+        SequenceEcritureComptable seqEcComptable2 = new SequenceEcritureComptable(2015, 99);
         SequenceEcritureComptable seqEcComptable = new SequenceEcritureComptable();
         seqEcComptable.setAnnee(2015);
         seqEcComptable.setDerniereValeur(99);
         String toString = "SequenceEcritureComptable{annee=2015, derniereValeur=99}";
-
         Assert.assertEquals(new Integer(2015), seqEcComptable.getAnnee());
         Assert.assertEquals(new Integer(99), seqEcComptable.getDerniereValeur());
         Assert.assertEquals(toString, seqEcComptable.toString());
+
     }
 
     @Test
