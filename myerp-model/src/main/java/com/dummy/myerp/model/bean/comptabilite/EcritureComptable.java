@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import com.dummy.myerp.technical.exception.FunctionalException;
 import org.apache.commons.lang3.StringUtils;
 
 
@@ -99,8 +100,8 @@ public class EcritureComptable {
     public BigDecimal getTotalCredit() {
         BigDecimal vRetour = BigDecimal.ZERO;
         for (LigneEcritureComptable vLigneEcritureComptable : listLigneEcriture) {
-            if (vLigneEcritureComptable.getDebit() != null) {
-                vRetour = vRetour.add(vLigneEcritureComptable.getDebit());
+            if (vLigneEcritureComptable.getCredit() != null) {
+                vRetour = vRetour.add(vLigneEcritureComptable.getCredit());
             }
         }
         return vRetour;
@@ -110,7 +111,7 @@ public class EcritureComptable {
      * Renvoie si l'écriture est équilibrée (TotalDebit = TotalCrédit)
      * @return boolean
      */
-    public boolean isEquilibree() {
+    public boolean isEquilibree() throws FunctionalException {
         boolean vRetour = this.getTotalDebit().equals(getTotalCredit());
         return vRetour;
     }

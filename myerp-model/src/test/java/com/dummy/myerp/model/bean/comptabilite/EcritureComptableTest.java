@@ -2,6 +2,7 @@ package com.dummy.myerp.model.bean.comptabilite;
 
 import java.math.BigDecimal;
 
+import com.dummy.myerp.technical.exception.FunctionalException;
 import org.apache.commons.lang3.ObjectUtils;
 import org.junit.Assert;
 import org.junit.Test;
@@ -21,7 +22,7 @@ public class EcritureComptableTest {
     }
 
     @Test(expected = AssertionError.class)
-    public void isEquilibree() {
+    public void isEquilibree() throws FunctionalException {
         EcritureComptable vEcriture;
         vEcriture = new EcritureComptable();
 
