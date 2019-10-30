@@ -1,10 +1,7 @@
 package com.dummy.myerp.model.bean.comptabilite;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-
 import com.dummy.myerp.technical.exception.FunctionalException;
 import org.apache.commons.lang3.ObjectUtils;
 import org.junit.Assert;
@@ -20,10 +17,9 @@ public class EcritureComptableTest {
         BigDecimal vCredit = pCredit == null ? null : new BigDecimal(pCredit);
         String vLibelle = ObjectUtils.defaultIfNull(vDebit, BigDecimal.ZERO)
                 .subtract(ObjectUtils.defaultIfNull(vCredit, BigDecimal.ZERO)).toPlainString();
-        LigneEcritureComptable vRetour = new LigneEcritureComptable(new CompteComptable(pCompteComptableNumero),
+        return new LigneEcritureComptable(new CompteComptable(pCompteComptableNumero),
                 vLibelle,
                 vDebit, vCredit);
-        return vRetour;
     }
 
     @Test(expected = AssertionError.class)
@@ -116,10 +112,20 @@ public class EcritureComptableTest {
 
     @Test
     public void testJournalComptable() {
-        JournalComptable jComptable = new JournalComptable("AC50", "Libelle");
-
+        JournalComptable jComptable = new JournalComptable();
+        jComptable.setCode("AC50");
+        jComptable.setLibelle("Libelle");
         Assert.assertEquals("AC50", jComptable.getCode());
         Assert.assertEquals("Libelle", jComptable.getLibelle());
+    }
 
+    @Test
+    public void testEcritureComptable() {
+        CompteComptable cComptable = new CompteComptable();
+        cComptable.setNumero(1);
+        cComptable.setLibelle("Libelle");
+
+        Assert.assertEquals(new Integer(1), cComptable.getNumero());
+        Assert.assertEquals("Libelle", cComptable.getLibelle());
     }
 }
