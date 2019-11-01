@@ -111,7 +111,7 @@ public class EcritureComptable {
      * Renvoie si l'écriture est équilibrée (TotalDebit = TotalCrédit)
      * @return boolean
      */
-    public boolean isEquilibree() throws FunctionalException {
+    public boolean isEquilibree() {
         boolean vRetour = this.getTotalDebit().equals(getTotalCredit());
         return vRetour;
     }

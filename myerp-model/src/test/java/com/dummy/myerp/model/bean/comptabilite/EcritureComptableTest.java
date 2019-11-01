@@ -24,17 +24,25 @@ public class EcritureComptableTest {
                 vDebit, vCredit);
     }
 
-    @Test(expected = AssertionError.class)
-    public void isEquilibree() throws FunctionalException {
+    @Test
+    public void isEquilibree() {
         EcritureComptable vEcriture;
         vEcriture = new EcritureComptable();
 
-        vEcriture.setLibelle("Equilibrée");
+        vEcriture.setLibelle("Equilibrée avec valeurs positives");
         vEcriture.getListLigneEcriture().add(this.createLigne(1, "200.50", null));
-        vEcriture.getListLigneEcriture().add(this.createLigne(1, "100.50", "33"));
-        vEcriture.getListLigneEcriture().add(this.createLigne(2, null, "301"));
-        vEcriture.getListLigneEcriture().add(this.createLigne(2, "40", "7"));
-        Assert.assertTrue(vEcriture.toString(), vEcriture.isEquilibree());
+        vEcriture.getListLigneEcriture().add(this.createLigne(1, "100.50", "33.00"));
+        vEcriture.getListLigneEcriture().add(this.createLigne(2, null, "301.00"));
+        vEcriture.getListLigneEcriture().add(this.createLigne(2, "40", "7.00"));
+        Assert.assertTrue(vEcriture.toString() + " result = " + vEcriture.isEquilibree() + " debit = " + vEcriture.getTotalDebit() + ", crédit = " + vEcriture.getTotalCredit(), vEcriture.isEquilibree());
+
+        vEcriture.getListLigneEcriture().clear();
+        vEcriture.setLibelle("Equilibrée avec valeurs négatives");
+        vEcriture.getListLigneEcriture().add(this.createLigne(1, "-200.50", null));
+        vEcriture.getListLigneEcriture().add(this.createLigne(1, "-100.50", "-33.00"));
+        vEcriture.getListLigneEcriture().add(this.createLigne(2, null, "-301"));
+        vEcriture.getListLigneEcriture().add(this.createLigne(2, "-40", "-7"));
+        Assert.assertTrue(vEcriture.toString() + " result = " + vEcriture.isEquilibree() + " debit = " + vEcriture.getTotalDebit() + ", crédit = " + vEcriture.getTotalCredit(), vEcriture.isEquilibree());
 
         vEcriture.getListLigneEcriture().clear();
         vEcriture.setLibelle("Non équilibrée");
@@ -43,6 +51,7 @@ public class EcritureComptableTest {
         vEcriture.getListLigneEcriture().add(this.createLigne(2, null, "30"));
         vEcriture.getListLigneEcriture().add(this.createLigne(2, "1", "2"));
         Assert.assertFalse(vEcriture.toString(), vEcriture.isEquilibree());
+
     }
 
     @Test
@@ -73,10 +82,12 @@ public class EcritureComptableTest {
         vEcritureComptable.setJournal(new JournalComptable("AC", "Achat"));
         vEcritureComptable.setDate(new Date());
         vEcritureComptable.setLibelle("Libelle");
+        BigDecimal debit = new BigDecimal(5654);
+        BigDecimal credit = new BigDecimal(1564);
+
         vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
                 null, new BigDecimal(1234),
                 null));
-
         vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2),
                 null, new BigDecimal(587),
                 new BigDecimal(1234)));
@@ -88,27 +99,27 @@ public class EcritureComptableTest {
     }
 
     @Test
-    public void testEcritureComptable () {
+    public void testGetSetEcritureComptable() {
         BeanTester.testBean(EcritureComptable.class);
     }
 
     @Test
-    public void testSequenceEcritureComptable() {
+    public void testGetSetSequenceEcritureComptable() {
         BeanTester.testBean((SequenceEcritureComptable.class));
     }
 
     @Test
-    public void testLigneEcritureComptable() {
+    public void testGetSetLigneEcritureComptable() {
         BeanTester.testBean(LigneEcritureComptable.class);
     }
 
     @Test
-    public void testJournalComptable() {
+    public void testGetSetJournalComptable() {
         BeanTester.testBean(JournalComptable.class);
     }
 
     @Test
-    public void testCompteComptable() {
+    public void testGetSetCompteComptable() {
         BeanTester.testBean(CompteComptable.class);
     }
 }
