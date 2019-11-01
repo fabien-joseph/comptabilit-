@@ -4,8 +4,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import com.dummy.myerp.technical.exception.FunctionalException;
 import org.apache.commons.lang3.ObjectUtils;
 import org.junit.Assert;
 import org.junit.Test;
@@ -107,6 +105,7 @@ public class EcritureComptableTest {
         compteComptables.add(new CompteComptable(1, "LibelleCompte1"));
         compteComptables.add(compteComptable);
         compteComptables.add(new CompteComptable(3, "LibelleCompte3"));
+        compteComptables.add(null);
         Assert.assertEquals(compteComptable, CompteComptable.getByNumero(compteComptables, 2));
     }
 
@@ -128,6 +127,7 @@ public class EcritureComptableTest {
         List<JournalComptable> journalComptables = new ArrayList<>();
         journalComptables.add(new JournalComptable("OKIU6", "LibelleJournalOKIU6"));
         journalComptables.add(new JournalComptable("BV658", "LibelleJournalBV658"));
+        journalComptables.add(null);
         journalComptables.add(journalComptable);
         Assert.assertEquals(journalComptable, JournalComptable.getByCode(journalComptables, "EDE58"));
     }
