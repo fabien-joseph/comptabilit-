@@ -101,6 +101,13 @@ public class EcritureComptableTest {
     @Test
     public void testGetSetEcritureComptable() {
         BeanTester.testBean(EcritureComptable.class);
+
+        CompteComptable compteComptable = new CompteComptable(2, "LibelleCompte2");
+        List<CompteComptable> compteComptables = new ArrayList<>();
+        compteComptables.add(new CompteComptable(1, "LibelleCompte1"));
+        compteComptables.add(compteComptable);
+        compteComptables.add(new CompteComptable(3, "LibelleCompte3"));
+        Assert.assertEquals(compteComptable, CompteComptable.getByNumero(compteComptables, 2));
     }
 
     @Test
@@ -116,6 +123,13 @@ public class EcritureComptableTest {
     @Test
     public void testGetSetJournalComptable() {
         BeanTester.testBean(JournalComptable.class);
+
+        JournalComptable journalComptable = new JournalComptable("EDE58", "LibelleJournalEDE58");
+        List<JournalComptable> journalComptables = new ArrayList<>();
+        journalComptables.add(new JournalComptable("OKIU6", "LibelleJournalOKIU6"));
+        journalComptables.add(new JournalComptable("BV658", "LibelleJournalBV658"));
+        journalComptables.add(journalComptable);
+        Assert.assertEquals(journalComptable, JournalComptable.getByCode(journalComptables, "EDE58"));
     }
 
     @Test
