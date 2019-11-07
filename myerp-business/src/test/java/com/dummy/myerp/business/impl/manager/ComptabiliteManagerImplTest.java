@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.dummy.myerp.business.contrat.BusinessProxy;
+import com.dummy.myerp.business.impl.AbstractBusinessManager;
 import com.dummy.myerp.business.impl.TransactionManager;
 import com.dummy.myerp.business.mock.BusinessProxyMock;
 import com.dummy.myerp.business.mock.DaoProxyMock;
@@ -22,8 +23,6 @@ import com.dummy.myerp.technical.exception.FunctionalException;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-
-import static org.junit.Assert.fail;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -36,8 +35,17 @@ public class ComptabiliteManagerImplTest {
     @Mock
     private ComptabiliteDao comptabiliteDao;
 
+    @Mock
+    private DaoProxy daoProxy;
+
+    @Mock
+    private BusinessProxy businessProxy;
+
     @Before
-    public void setUpEcritureComptable() {
+    public void setUpEcritureComptable() throws NotFoundException {
+        this.manager = new ComptabiliteManagerImpl();
+        AbstractBusinessManager.configure(businessProxy, daoProxy, TransactionManager.getInstance());
+
         EcritureComptable vEcritureComptable;
         vEcritureComptable = new EcritureComptable();
         vEcritureComptable.setJournal(new JournalComptable("AC1", "Achat1"));
@@ -65,13 +73,13 @@ public class ComptabiliteManagerImplTest {
                 null, null,
                 new BigDecimal(1234)));
         this.listEcritureComptable.add(vEcritureComptable2);
+
+        when(comptabiliteDao.getEcritureComptableByRef("Reference1")).thenReturn(listEcritureComptable.get(0));
+        when(daoProxy.getComptabiliteDao()).thenReturn(comptabiliteDao);
     }
 
 
-    @Before
-    public void setUp() {
-        new ComptabiliteManagerImpl().configure(new BusinessProxyMock(), new DaoProxyMock(), TransactionManager.getInstance());
-    }
+
 
     @Test
     public void checkEcritureComptableUnit() throws Exception {
@@ -128,7 +136,7 @@ public class ComptabiliteManagerImplTest {
         manager.checkEcritureComptableUnit(vEcritureComptable);
     }
 
-    @Test
+    @Test (expected = FunctionalException.class)
     public void checkEcritureComptableUnitRG6() throws FunctionalException, NotFoundException {
         EcritureComptable vEcritureComptable;
         vEcritureComptable = new EcritureComptable();
@@ -143,7 +151,6 @@ public class ComptabiliteManagerImplTest {
                 null, null,
                 new BigDecimal(123)));
 
-        when(comptabiliteDao.getEcritureComptableByRef("Reference1")).thenReturn(listEcritureComptable.get(0));
         manager.checkEcritureComptableContext(vEcritureComptable);
     }
 
