@@ -8,8 +8,6 @@ import java.util.List;
 import com.dummy.myerp.business.contrat.BusinessProxy;
 import com.dummy.myerp.business.impl.AbstractBusinessManager;
 import com.dummy.myerp.business.impl.TransactionManager;
-import com.dummy.myerp.business.mock.BusinessProxyMock;
-import com.dummy.myerp.business.mock.DaoProxyMock;
 import com.dummy.myerp.consumer.dao.contrat.ComptabiliteDao;
 import com.dummy.myerp.consumer.dao.contrat.DaoProxy;
 import com.dummy.myerp.technical.exception.NotFoundException;
