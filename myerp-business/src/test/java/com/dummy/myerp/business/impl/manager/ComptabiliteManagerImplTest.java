@@ -153,7 +153,7 @@ public class ComptabiliteManagerImplTest {
     }
 
     @Test (expected = FunctionalException.class)
-    public void checkEcritureComptableUnitRG6() throws FunctionalException, NotFoundException {
+    public void checkEcritureComptableUnitRG6() throws FunctionalException {
         EcritureComptable vEcritureComptable;
         vEcritureComptable = new EcritureComptable();
         vEcritureComptable.setJournal(new JournalComptable("AC1", "Achat1"));
