@@ -36,7 +36,7 @@ public class ComptabiliteManagerImplTestRG3 {
         vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
                 null, new BigDecimal(123),
                 null));
-        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
+        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2),
                 null, null,
                 new BigDecimal(123)));
         manager.checkEcritureComptableUnit(vEcritureComptable);
@@ -66,6 +66,52 @@ public class ComptabiliteManagerImplTestRG3 {
         vEcritureComptable.setDate(new Date());
         vEcritureComptable.setLibelle("Libelle");
         vEcritureComptable.setReference("AC-2019/00001");
+        manager.checkEcritureComptableUnit(vEcritureComptable);
+    }
+
+    // Ecriture avec 3 lignes écritures comptables, censée fonctionner
+    @Test()
+    public void checkEcritureComptableUnitRG3With3LignesEcritures() throws Exception {
+        EcritureComptable vEcritureComptable;
+        vEcritureComptable = new EcritureComptable();
+        vEcritureComptable.setJournal(new JournalComptable("AC", "Achat"));
+        vEcritureComptable.setDate(new Date());
+        vEcritureComptable.setLibelle("Libelle");
+        vEcritureComptable.setReference("AC-2019/00001");
+        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
+                null, new BigDecimal(246),
+                null));
+        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2),
+                null, null,
+                new BigDecimal(123)));
+        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(3),
+                null, null,
+                new BigDecimal(123)));
+        manager.checkEcritureComptableUnit(vEcritureComptable);
+    }
+
+    // Ecriture avec 4 lignes écritures comptables, censée fonctionner
+    @Test()
+    public void checkEcritureComptableUnitRG3With4LignesEcritures() throws Exception {
+        EcritureComptable vEcritureComptable;
+        vEcritureComptable = new EcritureComptable();
+        vEcritureComptable.setJournal(new JournalComptable("AC", "Achat"));
+        vEcritureComptable.setDate(new Date());
+        vEcritureComptable.setLibelle("Libelle");
+        vEcritureComptable.setReference("AC-2019/00001");
+        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
+                null, new BigDecimal(123),
+                null));
+        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
+                null, new BigDecimal(123),
+                null));
+        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2),
+                null, null,
+                new BigDecimal(123)));
+        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(3),
+                null, null,
+                new BigDecimal(123)));
+
         manager.checkEcritureComptableUnit(vEcritureComptable);
     }
 
