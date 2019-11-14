@@ -147,7 +147,7 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
             if (Integer.parseInt(str[1]) != yearActual)
                 throw new FunctionalException("L'année de référence indiquée n'est pas l'année actuelle.");
         } else {
-            throw new FunctionalException("Aucune référence n'a été entrée.");
+            throw new FunctionalException("La référence comptable ne doit pas être nulle.");
         }
 
     }
@@ -171,8 +171,7 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
                 // Si l'écriture à vérifier est une nouvelle écriture (id == null),
                 // ou si elle ne correspond pas à l'écriture trouvée (id != idECRef),
                 // c'est qu'il y a déjà une autre écriture avec la même référence
-                if (pEcritureComptable.getId() == null
-                        || !pEcritureComptable.getId().equals(vECRef.getId())) {
+                if (pEcritureComptable.getReference().equals(vECRef.getReference())) {
                     throw new FunctionalException("Une autre écriture comptable existe déjà avec la même référence.");
                 }
             } catch (NotFoundException vEx) {
