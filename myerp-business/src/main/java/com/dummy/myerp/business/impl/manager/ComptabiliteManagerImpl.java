@@ -93,7 +93,6 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
         this.checkEcritureComptableContext(pEcritureComptable);
     }
 
-
     /**
      * Vérifie que l'Ecriture comptable respecte les règles de gestion unitaires,
      * c'est à dire indépendemment du contexte (unicité de la référence, exercie comptable non cloturé...)
