@@ -141,11 +141,14 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 
         // TODO ===== RG_Compta_5 : Format et contenu de la référence
         // vérifier que l'année dans la référence correspond bien à la date de l'écriture, idem pour le code journal...
-        String[] str = pEcritureComptable.getReference().split("-|/");
-        int yearActual = Calendar.getInstance().get(Calendar.YEAR);
-        if (Integer.parseInt(str[1]) != yearActual)
-        throw new FunctionalException("L'année de référence indiquée n'est pas l'année actuelle.");
-
+        if (pEcritureComptable.getReference() != null) {
+            String[] str = pEcritureComptable.getReference().split("-|/");
+            int yearActual = Calendar.getInstance().get(Calendar.YEAR);
+            if (Integer.parseInt(str[1]) != yearActual)
+                throw new FunctionalException("L'année de référence indiquée n'est pas l'année actuelle.");
+        } else {
+            throw new FunctionalException("Aucune référence n'a été entrée.");
+        }
 
     }
 
