@@ -11,6 +11,11 @@ import org.junit.Test;
 import java.math.BigDecimal;
 import java.util.Date;
 
+/*
+    ===== RG4 =====
+Les montants des lignes d'écriture sont signés et peuvent prendre des valeurs négatives (même si cela est peu fréquent).
+ */
+
 public class ComptabiliteManagerImplTestRG4 {
     private ComptabiliteManagerImpl manager = null;
 
@@ -19,7 +24,8 @@ public class ComptabiliteManagerImplTestRG4 {
         this.manager = new ComptabiliteManagerImpl();
     }
 
-    @Test()
+    // Deux négatives égaux
+    @Test
     public void checkEcritureComptableWithLigneNegativeBalanced() throws FunctionalException {
         EcritureComptable vEcritureComptable;
         vEcritureComptable = new EcritureComptable();
@@ -36,6 +42,7 @@ public class ComptabiliteManagerImplTestRG4 {
         manager.checkEcritureComptableUnit(vEcritureComptable);
     }
 
+    // Deux négatives inégaux
     @Test(expected = FunctionalException.class)
     public void checkEcritureComptableWithLigneNegativeNotBalanced() throws FunctionalException {
         EcritureComptable vEcritureComptable;
@@ -43,7 +50,7 @@ public class ComptabiliteManagerImplTestRG4 {
         vEcritureComptable.setJournal(new JournalComptable("AC", "Achat"));
         vEcritureComptable.setDate(new Date());
         vEcritureComptable.setLibelle("Libelle");
-        vEcritureComptable.setReference("AC-2020/00001");
+        vEcritureComptable.setReference("AC-2019/00001");
         vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
                 null, new BigDecimal(-5),
                 null));
@@ -53,6 +60,7 @@ public class ComptabiliteManagerImplTestRG4 {
         manager.checkEcritureComptableUnit(vEcritureComptable);
     }
 
+    // Un négatif un positif inégaux
     @Test(expected = FunctionalException.class)
     public void checkEcritureComptableWithLigneNegativeNotBalancedAndBalanced() throws FunctionalException {
         EcritureComptable vEcritureComptable;
@@ -60,7 +68,7 @@ public class ComptabiliteManagerImplTestRG4 {
         vEcritureComptable.setJournal(new JournalComptable("AC", "Achat"));
         vEcritureComptable.setDate(new Date());
         vEcritureComptable.setLibelle("Libelle");
-        vEcritureComptable.setReference("AC-2020/00001");
+        vEcritureComptable.setReference("AC-2019/00001");
         vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
                 null, new BigDecimal(-5),
                 null));
