@@ -115,5 +115,22 @@ public class ComptabiliteManagerImplTestRG3 {
         manager.checkEcritureComptableUnit(vEcritureComptable);
     }
 
+    // Ecriture comptable à 4 lignes équilibrées, censée fonctionner
+    @Test(expected = FunctionalException.class)
+    public void checkEcritureComptableUnitRG3With2LignesEcrituresNull() throws Exception {
+        EcritureComptable vEcritureComptable;
+        vEcritureComptable = new EcritureComptable();
+        vEcritureComptable.setJournal(new JournalComptable("AC", "Achat"));
+        vEcritureComptable.setDate(new Date());
+        vEcritureComptable.setLibelle("Libelle");
+        vEcritureComptable.setReference("AC-2019/00001");
+        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
+                null, null,
+                null));
+        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2),
+                null, null,
+                null));
 
+        manager.checkEcritureComptableUnit(vEcritureComptable);
+    }
 }
