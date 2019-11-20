@@ -25,28 +25,8 @@ public class ComptabiliteManagerImplTestRG7 {
         this.manager = new ComptabiliteManagerImpl();
     }
 
-
-    // Ligne comptable sans chiffre après la virgule, devrait passer
-    @Test()
-    public void checkEcritureComptableUnitRG7With0Decimal() throws FunctionalException {
-        EcritureComptable vEcritureComptable;
-        vEcritureComptable = new EcritureComptable();
-        vEcritureComptable.setJournal(new JournalComptable("AC1", "Achat1"));
-        vEcritureComptable.setDate(new Date());
-        vEcritureComptable.setLibelle("Libelle1");
-        vEcritureComptable.setReference("AC-2019/00001");
-        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
-                null, new BigDecimal(123),
-                null));
-        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2),
-                null, null,
-                new BigDecimal(123)));
-
-        manager.checkEcritureComptableUnit(vEcritureComptable);
-    }
-
     // Ligne comptable à 1 chiffre après la virgule, devrait passer
-    @Test()
+    @Test
     public void checkEcritureComptableUnitRG7With1Decimal() throws FunctionalException {
         EcritureComptable vEcritureComptable;
         vEcritureComptable = new EcritureComptable();
@@ -64,9 +44,9 @@ public class ComptabiliteManagerImplTestRG7 {
         manager.checkEcritureComptableUnit(vEcritureComptable);
     }
 
-    // TODO comprendre pourquoi ça plante ici alors que ça devrait pas
-/*    // Ligne comptable à 2 chiffres après la virgule, devrait passer
-    @Test()
+/*    // TODO comprendre pourquoi ça plante ici alors que ça devrait pas
+    // Ligne comptable à 2 chiffres après la virgule, devrait passer
+    @Test
     public void checkEcritureComptableUnitRG7With2Decimal() throws FunctionalException {
         EcritureComptable vEcritureComptable;
         vEcritureComptable = new EcritureComptable();
@@ -75,11 +55,11 @@ public class ComptabiliteManagerImplTestRG7 {
         vEcritureComptable.setLibelle("Libelle1");
         vEcritureComptable.setReference("AC-2019/00001");
         vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
-                null, new BigDecimal(123.55),
-                null));
+                null, new BigDecimal(123.51),
+                new BigDecimal(0.00)));
         vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2),
-                null, null,
-                new BigDecimal(123.55)));
+                null, new BigDecimal(0.00),
+                new BigDecimal(123.51)));
 
         manager.checkEcritureComptableUnit(vEcritureComptable);
     }*/
