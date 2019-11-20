@@ -148,15 +148,6 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
         } else {
             throw new FunctionalException("La référence comptable ne doit pas être nulle.");
         }
-
-        // ===== RG_Compta_7 : Les montants des lignes d'écritures peuvent comporter 2 chiffres maximum après la virgule.
-        for (LigneEcritureComptable vLigneEcritureComptable : pEcritureComptable.getListLigneEcriture()) {
-            int scaleCredit = (vLigneEcritureComptable.getCredit() != null) ? vLigneEcritureComptable.getCredit().scale() : 0;
-            int scaleDebit = (vLigneEcritureComptable.getDebit() != null) ? vLigneEcritureComptable.getDebit().scale() : 0;
-            if (scaleCredit > 2 ||
-            scaleDebit > 2)
-                throw new FunctionalException("Les montants des lignes d'écritures peuvent comporter 2 chiffres maximum après la virgule.");
-        }
     }
 
 

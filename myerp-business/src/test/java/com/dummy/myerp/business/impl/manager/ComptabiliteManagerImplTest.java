@@ -49,7 +49,7 @@ public class ComptabiliteManagerImplTest {
         vEcritureComptable.setJournal(new JournalComptable("AC1", "Achat1"));
         vEcritureComptable.setDate(new Date());
         vEcritureComptable.setLibelle("Libelle1");
-        vEcritureComptable.setReference("Reference1");
+        vEcritureComptable.setReference("AC-2018/00001");
         vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
                 null, new BigDecimal(123),
                 null));
@@ -63,7 +63,7 @@ public class ComptabiliteManagerImplTest {
         vEcritureComptable2.setJournal(new JournalComptable("AC2", "Achat2"));
         vEcritureComptable2.setDate(new Date());
         vEcritureComptable2.setLibelle("Libelle2");
-        vEcritureComptable2.setReference("Reference2");
+        vEcritureComptable2.setReference("AC-2018/00002");
         vEcritureComptable2.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
                 null, new BigDecimal(1234),
                 null));
@@ -72,7 +72,7 @@ public class ComptabiliteManagerImplTest {
                 new BigDecimal(1234)));
         this.listEcritureComptable.add(vEcritureComptable2);
 
-        when(comptabiliteDao.getEcritureComptableByRef("Reference1")).thenReturn(listEcritureComptable.get(0));
+        when(comptabiliteDao.getEcritureComptableByRef("AC-2019/00001")).thenReturn(listEcritureComptable.get(0));
         when(daoProxy.getComptabiliteDao()).thenReturn(comptabiliteDao);
     }
 
@@ -94,13 +94,29 @@ public class ComptabiliteManagerImplTest {
         manager.checkEcritureComptableUnit(vEcritureComptable);
     }
 
-
-
     @Test(expected = FunctionalException.class)
     public void checkEcritureComptableUnitViolation() throws Exception {
         EcritureComptable vEcritureComptable;
         vEcritureComptable = new EcritureComptable();
         manager.checkEcritureComptableUnit(vEcritureComptable);
+    }
+
+
+    @Test
+    public void checkEcritureComptable() throws Exception {
+        EcritureComptable vEcritureComptable;
+        vEcritureComptable = new EcritureComptable();
+        vEcritureComptable.setJournal(new JournalComptable("AC", "Achat"));
+        vEcritureComptable.setDate(new Date());
+        vEcritureComptable.setLibelle("Libelle");
+        vEcritureComptable.setReference("AC-2019/00001");
+        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
+                null, new BigDecimal(123),
+                null));
+        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2),
+                null, null,
+                new BigDecimal(123)));
+        manager.checkEcritureComptable(vEcritureComptable);
     }
 
 }
