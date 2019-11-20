@@ -7,11 +7,15 @@ sudo: required
 services:
   - docker
 
-script:
+before_install:
   - cd docker/dev
   - docker-compose up
+
+before_script:
   - cd ../../src
-  - mvn test -P test-consumer
+
+script:
+  - mvn test -Ptest-consumer
   - mvn cobertura:cobertura
 
 after_success:
