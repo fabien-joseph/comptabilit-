@@ -23,7 +23,7 @@ before_script:
   - cd ../..
 
 script:
-  - mvn test
+  - mvn test -Ptest-consumer
 
 after_success:
   - mvn cobertura:cobertura
