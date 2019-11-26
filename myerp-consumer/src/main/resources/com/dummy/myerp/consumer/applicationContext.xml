@@ -47,8 +47,8 @@
         <constructor-arg value="javax.sql.DataSource"/>
         <property name="driverClassName" value="org.postgresql.Driver" />
         <property name="url" value="jdbc:postgresql://localhost:5432/db_myerp"/>
-        <property name="username" value="fabien"/>
-        <property name="password" value="azerty123"/>
+        <property name="username" value="db_myerp"/>
+        <property name="password" value="db_myerp"/>
     </bean>
 
 
