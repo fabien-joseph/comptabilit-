@@ -15,7 +15,7 @@ import static org.junit.Assert.assertFalse;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath:com/dummy/myerp/testconsumer/consumer/testContext.xml")
+@ContextConfiguration(locations = "classpath:com/dummy/myerp/testconsumer/consumer/bootstrapContext.xml")
 public class ComptabiliteDaoImplIntegrationTest extends ConsumerTestCase {
     private ComptabiliteDao dao = getDaoProxy().getComptabiliteDao();
     private EcritureComptable vEcritureComptable;
