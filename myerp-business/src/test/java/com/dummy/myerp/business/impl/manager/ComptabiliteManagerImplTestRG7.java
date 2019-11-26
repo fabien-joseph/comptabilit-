@@ -44,7 +44,6 @@ public class ComptabiliteManagerImplTestRG7 {
         manager.checkEcritureComptableUnit(vEcritureComptable);
     }
 
-/*    // TODO comprendre pourquoi ça plante ici alors que ça devrait pas
     // Ligne comptable à 2 chiffres après la virgule, devrait passer
     @Test
     public void checkEcritureComptableUnitRG7With2Decimal() throws FunctionalException {
@@ -55,14 +54,14 @@ public class ComptabiliteManagerImplTestRG7 {
         vEcritureComptable.setLibelle("Libelle1");
         vEcritureComptable.setReference("AC-2019/00001");
         vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
-                null, new BigDecimal(123.51),
-                new BigDecimal(0.00)));
+                null, new BigDecimal(123.51f),
+                null));
         vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2),
-                null, new BigDecimal(0.00),
-                new BigDecimal(123.51)));
+                null, null,
+                new BigDecimal(123.51f)));
 
         manager.checkEcritureComptableUnit(vEcritureComptable);
-    }*/
+    }
 
     // Ecritue comptable avec une référence différente que celles présentes dans la liste
     @Test(expected = FunctionalException.class)
