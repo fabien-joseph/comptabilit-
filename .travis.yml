@@ -3,6 +3,12 @@ language: java
 jdk:
   - oraclejdk8
 
+before_script:
+  - cd docker/dev
+  - docker-compose up
+  - docker ps
+  - cd ../..
+
 script:
   - mvn test
 
