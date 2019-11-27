@@ -56,11 +56,11 @@ public class ComptabiliteManagerImplTestRG6 {
         vEcritureComptable.setLibelle("Libelle1");
         vEcritureComptable.setReference("AC-2019/00001");
         vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
-                null, new BigDecimal(123),
+                null, new BigDecimal("123"),
                 null));
         vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2),
                 null, null,
-                new BigDecimal(123)));
+                new BigDecimal("123")));
         this.listEcritureComptable.add(vEcritureComptable);
 
         EcritureComptable vEcritureComptable2;
@@ -70,11 +70,11 @@ public class ComptabiliteManagerImplTestRG6 {
         vEcritureComptable2.setLibelle("Libelle2");
         vEcritureComptable2.setReference("AC-2019/00002");
         vEcritureComptable2.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
-                null, new BigDecimal(1234),
+                null, new BigDecimal("1234"),
                 null));
         vEcritureComptable2.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2),
                 null, null,
-                new BigDecimal(1234)));
+                new BigDecimal("1234")));
         this.listEcritureComptable.add(vEcritureComptable2);
 
         when(comptabiliteDao.getEcritureComptableByRef("AC-2019/00001")).thenReturn(listEcritureComptable.get(0));
@@ -92,11 +92,11 @@ public class ComptabiliteManagerImplTestRG6 {
         vEcritureComptable.setLibelle("Libelle1");
         vEcritureComptable.setReference("AC-2019/00001");
         vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
-                null, new BigDecimal(123),
+                null, new BigDecimal("123"),
                 null));
         vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2),
                 null, null,
-                new BigDecimal(123)));
+                new BigDecimal("123")));
 
         manager.checkEcritureComptableContext(vEcritureComptable);
     }
@@ -111,11 +111,11 @@ public class ComptabiliteManagerImplTestRG6 {
         vEcritureComptable.setLibelle("Libelle1");
         vEcritureComptable.setReference("AC-2019/00003");
         vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
-                null, new BigDecimal(123),
+                null, new BigDecimal("123"),
                 null));
         vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2),
                 null, null,
-                new BigDecimal(123)));
+                new BigDecimal("123")));
 
         manager.checkEcritureComptableContext(vEcritureComptable);
     }
@@ -130,11 +130,11 @@ public class ComptabiliteManagerImplTestRG6 {
         vEcritureComptable.setLibelle("Libelle1");
         vEcritureComptable.setReference(null);
         vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
-                null, new BigDecimal(123),
+                null, new BigDecimal("123"),
                 null));
         vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2),
                 null, null,
-                new BigDecimal(123)));
+                new BigDecimal("123")));
 
         manager.checkEcritureComptableContext(vEcritureComptable);
     }

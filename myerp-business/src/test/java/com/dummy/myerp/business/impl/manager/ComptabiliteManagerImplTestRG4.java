@@ -34,11 +34,11 @@ public class ComptabiliteManagerImplTestRG4 {
         vEcritureComptable.setLibelle("Libelle");
         vEcritureComptable.setReference("AC-2019/00001");
         vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
-                null, new BigDecimal(-123),
+                null, new BigDecimal("-123"),
                 null));
         vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2),
                 null, null,
-                new BigDecimal(-123)));
+                new BigDecimal("-123")));
         manager.checkEcritureComptableUnit(vEcritureComptable);
     }
 
@@ -52,11 +52,11 @@ public class ComptabiliteManagerImplTestRG4 {
         vEcritureComptable.setLibelle("Libelle");
         vEcritureComptable.setReference("AC-2019/00001");
         vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
-                null, new BigDecimal(-5),
+                null, new BigDecimal("-5"),
                 null));
         vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2),
                 null, null,
-                new BigDecimal(-123)));
+                new BigDecimal("-123")));
         manager.checkEcritureComptableUnit(vEcritureComptable);
     }
 
@@ -70,11 +70,11 @@ public class ComptabiliteManagerImplTestRG4 {
         vEcritureComptable.setLibelle("Libelle");
         vEcritureComptable.setReference("AC-2019/00001");
         vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
-                null, new BigDecimal(-5),
+                null, new BigDecimal("-5"),
                 null));
         vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2),
                 null, null,
-                new BigDecimal(5)));
+                new BigDecimal("5")));
         manager.checkEcritureComptableUnit(vEcritureComptable);
     }
 

@@ -15,6 +15,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Date;
 
 public class ComptabiliteManagerImplTestRG7 {
@@ -54,11 +55,11 @@ public class ComptabiliteManagerImplTestRG7 {
         vEcritureComptable.setLibelle("Libelle1");
         vEcritureComptable.setReference("AC-2019/00001");
         vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
-                null, new BigDecimal(123.51f),
+                null, new BigDecimal("123.51"),
                 null));
         vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2),
                 null, null,
-                new BigDecimal(123.51f)));
+                new BigDecimal("123.51")));
 
         manager.checkEcritureComptableUnit(vEcritureComptable);
     }
