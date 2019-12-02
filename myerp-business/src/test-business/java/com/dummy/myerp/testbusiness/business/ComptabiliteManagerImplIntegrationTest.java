@@ -2,10 +2,7 @@ package com.dummy.myerp.testbusiness.business;
 
 
 import com.dummy.myerp.business.impl.manager.ComptabiliteManagerImpl;
-import com.dummy.myerp.model.bean.comptabilite.CompteComptable;
-import com.dummy.myerp.model.bean.comptabilite.EcritureComptable;
-import com.dummy.myerp.model.bean.comptabilite.JournalComptable;
-import com.dummy.myerp.model.bean.comptabilite.LigneEcritureComptable;
+import com.dummy.myerp.model.bean.comptabilite.*;
 import com.dummy.myerp.technical.exception.FunctionalException;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,6 +14,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.fail;
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -56,11 +55,6 @@ public class ComptabiliteManagerImplIntegrationTest {
         assertFalse(manager.getListEcritureComptable().isEmpty());
     }
 
-    //TODO Pas encore implémenté, mais il faudra le faire
-    @Test
-    public void addReference() {
-    }
-
     @Test
     public void insertAndDeleteEcritureComptableTest() throws FunctionalException {
         manager.insertEcritureComptable(vEcritureComptable);
@@ -81,6 +75,44 @@ public class ComptabiliteManagerImplIntegrationTest {
         manager.updateEcritureComptable(initialEcritureComptable);
     }
 
+    @Test
+    public void addReferenceTest() {
+        EcritureComptable ecritureComptable = new EcritureComptable();
+        ecritureComptable.setLibelle("Achat");
+        ecritureComptable.setDate(new Date());
+        ecritureComptable.setJournal(new JournalComptable("AC", "Achat"));
+    }
+
+    @Test
+    public void getListSequenceEcritureComptableTest () {
+        assertFalse(manager.getListSequenceEcritureComptable(2016).isEmpty());
+    }
+
+    @Test
+    public void updateSequenceEcritureComptableTest () {
+        SequenceEcritureComptable initialSeq = findSequenceEcritureComptableVE2016(manager.getListSequenceEcritureComptable(2016));
+        if (initialSeq == null)
+            fail("Aucune SequenceEcritureComptable n'a été trouvé. La BDD a-t-elle été lancée avec les dumps fournis ?");
+
+        initialSeq.setDerniereValeur(initialSeq.getDerniereValeur() + 1);
+        manager.updateSequenceEcritureComptable(initialSeq);
+        int lastValue = findSequenceEcritureComptableVE2016(manager.getListSequenceEcritureComptable(2016)).getDerniereValeur();
+        assertEquals(42, lastValue);
+
+        initialSeq.setDerniereValeur(initialSeq.getDerniereValeur() - 1);
+        manager.updateSequenceEcritureComptable(initialSeq);
+        lastValue = findSequenceEcritureComptableVE2016(manager.getListSequenceEcritureComptable(2016)).getDerniereValeur();
+        assertEquals(41, lastValue);
+    }
+
+    @Test
+    public void insertSequenceEcritureComptableTest () {
+        SequenceEcritureComptable sequenceEcritureComptable = new SequenceEcritureComptable(2019, 30, "VE");
+        manager.insertSequenceEcritureComptable(sequenceEcritureComptable);
+        assertEquals(1, manager.getListSequenceEcritureComptable(2019).size());
+        manager.deleteSequenceEcritureComptable(sequenceEcritureComptable);
+        assertEquals(0, manager.getListSequenceEcritureComptable(2019).size());
+    }
 
 
     // =========== Trouve une ecriture comptable parmi du liste en fonction de l'id ===========
@@ -92,5 +124,14 @@ public class ComptabiliteManagerImplIntegrationTest {
         return null;
     }
 
-
+    // =========== Trouve une séquence ecriture comptable parmi du liste en fonction de l'année et du code ===========
+    public SequenceEcritureComptable findSequenceEcritureComptableVE2016 (List<SequenceEcritureComptable> list) {
+        SequenceEcritureComptable sequence = null;
+        for (SequenceEcritureComptable seq :
+                list) {
+            if (seq.getJournalCode().equals("VE"))
+                sequence = seq;
+        }
+        return sequence;
+    }
 }
