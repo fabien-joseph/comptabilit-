@@ -81,6 +81,9 @@ public class ComptabiliteManagerImplIntegrationTest {
         manager.updateEcritureComptable(initialEcritureComptable);
     }
 
+
+
+    // =========== Trouve une ecriture comptable parmi du liste en fonction de l'id ===========
     public EcritureComptable findEcritureComptableById(List<EcritureComptable> ecritureComptables, int id) {
         for (EcritureComptable ecritureComptable : ecritureComptables) {
             if (ecritureComptable.getId() == id)
@@ -88,4 +91,6 @@ public class ComptabiliteManagerImplIntegrationTest {
         }
         return null;
     }
+
+
 }
