@@ -64,7 +64,7 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
      * {@inheritDoc}
      */
     @Override
-    public synchronized void addReference(EcritureComptable pEcritureComptable) throws NotFoundException {
+    public synchronized void addReference(EcritureComptable pEcritureComptable) {
         // Bien se réferer à la JavaDoc de cette méthode !
         // Le principe :
 //                1.  Remonter depuis la persitance la dernière valeur de la séquence du journal pour l'année de l'écriture
@@ -83,25 +83,20 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
         }
 
         if (sequenceEcritureComptable == null) {
-            sequenceEcritureComptable = new SequenceEcritureComptable(calendar.get(Calendar.YEAR), 1, pEcritureComptable.getJournal().getCode());
+            sequenceEcritureComptable = new SequenceEcritureComptable(calendar.get(Calendar.YEAR), 0, pEcritureComptable.getJournal().getCode());
         }
 
 
 //                2.  * S'il n'y a aucun enregistrement pour le journal pour l'année concernée :
 //                        1. Utiliser le numéro 1.
-        if (sequenceEcritureComptable.getDerniereValeur() == null) {
-            sequenceEcritureComptable.setDerniereValeur(1);
-        }
-//                    * Sinon :
-//                        1. Utiliser la dernière valeur + 1
-        else {
+
             sequenceEcritureComptable.setDerniereValeur(sequenceEcritureComptable.getDerniereValeur() + 1);
-        }
 //                3.  Mettre à jour la référence de l'écriture avec la référence calculée (RG_Compta_5)
         String reference = pEcritureComptable.getJournal().getCode();
-        reference += "-" + calendar.get(Calendar.YEAR);
+        reference += "-" + calendar.get(Calendar.YEAR) + "/";
 
-        StringBuilder code = new StringBuilder(sequenceEcritureComptable.getDerniereValeur().toString());
+        int lastValue = sequenceEcritureComptable.getDerniereValeur();
+        StringBuilder code = new StringBuilder(String.valueOf(lastValue));
         for (int i = code.length(); i < 5; i++) {
             code.insert(0, "0");
         }
@@ -109,7 +104,7 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 
         pEcritureComptable.setReference(reference);
         try {
-            checkEcritureComptable(pEcritureComptable);
+            //checkEcritureComptable(pEcritureComptable);
             getDaoProxy().getComptabiliteDao().updateEcritureComptable(pEcritureComptable);
 //                4.  Enregistrer (insert/update) la valeur de la séquence en persitance
 //                    (table sequence_ecriture_comptable)
@@ -118,7 +113,7 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
             } else {
                 getDaoProxy().getComptabiliteDao().updateSequenceEcritureComptable(sequenceEcritureComptable);
             }
-        } catch (FunctionalException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

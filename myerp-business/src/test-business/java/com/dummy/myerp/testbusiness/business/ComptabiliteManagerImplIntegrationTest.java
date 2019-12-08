@@ -4,6 +4,7 @@ package com.dummy.myerp.testbusiness.business;
 import com.dummy.myerp.business.impl.manager.ComptabiliteManagerImpl;
 import com.dummy.myerp.model.bean.comptabilite.*;
 import com.dummy.myerp.technical.exception.FunctionalException;
+import com.dummy.myerp.technical.exception.NotFoundException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -62,6 +63,16 @@ public class ComptabiliteManagerImplIntegrationTest {
     }
 
     @Test
+    public void addReferenceTest() throws FunctionalException {
+        manager.insertEcritureComptable(vEcritureComptable);
+        vEcritureComptable.getListLigneEcriture().remove(0);
+        vEcritureComptable.getListLigneEcriture().remove(0);
+        manager.addReference(vEcritureComptable);
+        assertEquals("AC-2019/00001", vEcritureComptable.getReference());
+        manager.deleteEcritureComptable(vEcritureComptable.getId());
+    }
+
+    @Test
     public void updateEcritureComptableTest() throws FunctionalException {
         List<EcritureComptable> list = manager.getListEcritureComptable();
         EcritureComptable initialEcritureComptable = findEcritureComptableById(list, -1);
@@ -73,14 +84,6 @@ public class ComptabiliteManagerImplIntegrationTest {
         assertEquals(testReference, findEcritureComptableById(manager.getListEcritureComptable(), -1).getReference());
         initialEcritureComptable.setReference(initialReference);
         manager.updateEcritureComptable(initialEcritureComptable);
-    }
-
-    @Test
-    public void addReferenceTest() {
-        EcritureComptable ecritureComptable = new EcritureComptable();
-        ecritureComptable.setLibelle("Achat");
-        ecritureComptable.setDate(new Date());
-        ecritureComptable.setJournal(new JournalComptable("AC", "Achat"));
     }
 
     @Test
