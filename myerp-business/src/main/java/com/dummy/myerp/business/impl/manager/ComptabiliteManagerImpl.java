@@ -173,6 +173,7 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 
         // ===== RG_Compta_5 : Format et contenu de la référence
         // vérifier que l'année dans la référence correspond bien à la date de l'écriture, idem pour le code journal...
+        // Le format de la ref est déjà vérifier plus haut dans cette méthode.
         if (pEcritureComptable.getReference() != null) {
             String[] str = pEcritureComptable.getReference().split("-|/");
             int yearActual = Calendar.getInstance().get(Calendar.YEAR);
