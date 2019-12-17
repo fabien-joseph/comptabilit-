@@ -24,7 +24,7 @@ before_script:
   - cd ../..
 
 script:
-  - mvn test -Ptest-consumer -Ptest-business
+  - mvn test -Ptest-consumer -Ptest-business -Pm2e
 
 after_success:
   - mvn cobertura:cobertura
