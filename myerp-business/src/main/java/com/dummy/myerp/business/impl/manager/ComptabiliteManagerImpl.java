@@ -39,7 +39,6 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
     public ComptabiliteManagerImpl() {
     }
 
-
     // ==================== Getters/Setters ====================
     @Override
     public List<CompteComptable> getListCompteComptable() {
