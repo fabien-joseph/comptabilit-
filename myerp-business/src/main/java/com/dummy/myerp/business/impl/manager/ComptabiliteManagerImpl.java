@@ -30,7 +30,6 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 
     // ==================== Attributs ====================
 
-
     // ==================== Constructeurs ====================
 
     /**
